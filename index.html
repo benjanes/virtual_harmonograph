@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+      body {
+        background-color: #000;
+      }
+
+      .container {
+        position: relative;
+        margin: 0 auto;
+        width: 800px;
+        height: 800px;
+      }
+
+      canvas {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      svg {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+
+      .draggable {
+        cursor: pointer;
+      }
+
+      form, p {
+        width: 800px;
+        color: #fff;
+        font-family: monospace;
+        margin: 0 auto;
+      }
+
+      .row {
+        display: flex;
+      }
+
+      .column {
+        width: 50%;
+        padding: 0 8px;
+      }
+
+      .input-holder {
+        margin-bottom: 10px;
+      }
+
+      label {
+        display: block;
+        font-size: 1.1em;
+      }
+
+      input {
+        display: block;
+        width: 100%;
+      }
+
+      button {
+        margin: 8px;
+        flex-grow: 1;
+        font-family: monospace;
+        font-size: 1.4em;
+        padding: 6px;
+        background-color: #fff;
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Drag circles (red, blue, and white) to update pivot points of the drawing.</p>
+    <div class="container">
+      <canvas></canvas>
+      <svg id="controls" width="800" height="800" viewBox="0 0 800 800">
+        <circle class="draggable" id="pivot1" cx="80" cy="100" r="20" stroke="#ff0000" fill="rgba(255,255,255,0)"/>
+        <circle class="draggable" id="pivot2" cx="720" cy="100" r="20" stroke="#0000ff" fill="rgba(255,255,255,0)"/>
+        <circle class="draggable" id="drawing_center" cx="400" cy="480" r="10" stroke="#fff" fill="rgba(255,255,255,0)"/>
+        <line x1="20" y1="20" x2="400" y2="480" stroke="#ff0000" />
+        <line x1="780" y1="20" x2="400" y2="480" stroke="#0000ff" />
+        <circle id="pendulum1" cx="80" cy="100" r="5" fill="#ff0000"/>
+        <circle id="pendulum2" cx="720" cy="100" r="5" fill="#0000ff"/>
+      </svg>
+    </div>
+    <form>
+      <div class="row">
+        <div class="column">
+          <div class="input-holder">
+            <label>Left Period</label>
+            <input class="period" type="range" min="0.5" max="3" value="1" step="0.05" id="left_period"/>
+          </div>
+          <div class="input-holder">
+            <label>Left Amplitude</label>
+            <input class="amplitude" type="range" min="10" max="250" value="180" step="5" id="left_amplitude"/>
+          </div>
+          <div class="input-holder">
+            <label>Pendulum Offset</label>
+            <input type="range" min="0" max="1" value="0" step="0.02" id="offset"/>
+          </div>
+        </div>
+        <div class="column">
+          <div class="input-holder">
+            <label>Right Period</label>
+            <input class="period" type="range" min="0.5" max="3" value="1.15" step="0.05" id="right_period"/>
+          </div>
+          <div class="input-holder">
+            <label>Right Amplitude</label>
+            <input class="amplitude" type="range" min="10" max="250" value="200" step="5" id="right_amplitude"/>
+          </div>
+          <div class="input-holder">
+            <label>Friction</label>
+            <input type="number" id="friction" value="0.0001"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <button id="hide_btn">Hide Controls</button>
+        <button id="reset_btn">Clear Drawing</button>
+        <button id="stop_btn">Stop Drawing</button>
+      </div>
+    </form>
+
+    <script src="pendulum.js"></script>
+    <script src="harmonograph.js"></script>
+    <script src="controls.js"></script>
+    <script src="draw.js"></script>
+  </body>
+</html>
